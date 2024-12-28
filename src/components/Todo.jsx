@@ -1,5 +1,6 @@
 import React from "react";
 import task from "../assets/task.png";
+import TodoItems from "./TodoItems";
 
 const Todo = () => {
   return (
@@ -21,6 +22,10 @@ const Todo = () => {
         <button className="border-none rounded-full bg-blue-600 w-32 h-14 text-white font-medium cursor-pointer">
           ADD +
         </button>
+      </div>
+
+      <div>
+        <TodoItems />
       </div>
     </div>
   );
