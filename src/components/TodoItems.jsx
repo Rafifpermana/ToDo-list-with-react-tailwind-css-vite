@@ -2,11 +2,15 @@ import PropTypes from "prop-types";
 import not_tick from "../assets/not_tick.png";
 import tick from "../assets/tick.png";
 import delete_icon from "../assets/delete_icon.png";
-import pensil from "../assets/pensil.png";
+import pensil from "../assets/pensil.png"; // Ikon pensil
 
 const TodoItems = ({ text, id, isComplete, deleteTodo, toggle, editTodo }) => {
   return (
-    <div className="flex items-center justify-between my-2 p-3 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+    <div
+      className={`flex items-center justify-between my-2 p-3 rounded-lg shadow-md transition-all duration-200 ${
+        isComplete ? "bg-blue-50" : "bg-white"
+      }`}
+    >
       <div
         onClick={() => toggle(id)}
         className="flex items-center cursor-pointer flex-1"
@@ -14,7 +18,9 @@ const TodoItems = ({ text, id, isComplete, deleteTodo, toggle, editTodo }) => {
         <img src={isComplete ? tick : not_tick} alt="" className="w-6 h-6" />
         <p
           className={`ml-4 text-lg ${
-            isComplete ? "line-through text-gray-400" : "text-gray-700"
+            isComplete
+              ? "line-through text-gray-500 font-medium"
+              : "text-gray-700"
           }`}
         >
           {text}

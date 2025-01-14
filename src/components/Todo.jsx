@@ -64,7 +64,7 @@ const Todo = () => {
   }, [todoList]);
 
   return (
-    <div className="bg-white w-full max-w-md rounded-xl shadow-2xl overflow-hidden">
+    <div className="bg-white w-full max-w-md rounded-xl shadow-2xl overflow-hidden mx-4">
       <div className="p-6 bg-gradient-to-r from-blue-500 to-purple-600">
         <div className="flex items-center gap-2">
           <img className="w-10" src={task} alt="task" />
@@ -76,13 +76,13 @@ const Todo = () => {
         <div className="flex items-center bg-gray-100 rounded-full shadow-inner p-2">
           <input
             ref={inputRef}
-            className="bg-transparent border-none outline-none flex-1 h-12 pl-4 pr-2 placeholder:text-gray-500"
+            className="bg-transparent border-none outline-none flex-1 h-12 pl-4 pr-2 placeholder:text-gray-500 text-sm sm:text-base"
             type="text"
             placeholder="Add Task"
           />
           <button
             onClick={add}
-            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium px-6 h-12 rounded-full hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium px-4 sm:px-6 h-12 rounded-full hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-sm sm:text-base"
           >
             ADD +
           </button>
@@ -91,7 +91,7 @@ const Todo = () => {
         <div className="mt-4 flex gap-2">
           <button
             onClick={() => setFilter("all")}
-            className={`px-4 py-2 rounded-full ${
+            className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-sm sm:text-base ${
               filter === "all" ? "bg-blue-500 text-white" : "bg-gray-200"
             }`}
           >
@@ -99,7 +99,7 @@ const Todo = () => {
           </button>
           <button
             onClick={() => setFilter("completed")}
-            className={`px-4 py-2 rounded-full ${
+            className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-sm sm:text-base ${
               filter === "completed" ? "bg-blue-500 text-white" : "bg-gray-200"
             }`}
           >
@@ -107,7 +107,7 @@ const Todo = () => {
           </button>
           <button
             onClick={() => setFilter("incomplete")}
-            className={`px-4 py-2 rounded-full ${
+            className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-sm sm:text-base ${
               filter === "incomplete" ? "bg-blue-500 text-white" : "bg-gray-200"
             }`}
           >
