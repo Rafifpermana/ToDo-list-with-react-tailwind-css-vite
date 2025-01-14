@@ -64,7 +64,7 @@ const Todo = () => {
   }, [todoList]);
 
   return (
-    <div className="bg-white w-full max-w-md rounded-xl shadow-2xl overflow-hidden mx-4">
+    <div className="bg-white w-full max-w-md rounded-xl shadow-2xl overflow-hidden mx-4 my-8 sm:my-16">
       <div className="p-6 bg-gradient-to-r from-blue-500 to-purple-600">
         <div className="flex items-center gap-2">
           <img className="w-10" src={task} alt="task" />

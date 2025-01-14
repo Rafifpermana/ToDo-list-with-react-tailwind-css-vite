@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import not_tick from "../assets/not_tick.png";
 import tick from "../assets/tick.png";
 import delete_icon from "../assets/delete_icon.png";
-import pensil from "../assets/pensil.png";
+import pensil from "../assets/pensil.png"; // Ikon pensil
 
 const TodoItems = ({ text, id, isComplete, deleteTodo, toggle, editTodo }) => {
   return (
