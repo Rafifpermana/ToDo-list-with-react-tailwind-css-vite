@@ -9,6 +9,7 @@ const Todo = () => {
       : []
   );
   const [filter, setFilter] = useState("all");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const inputRef = useRef();
 
   const add = () => {
@@ -59,6 +60,9 @@ const Todo = () => {
     return true;
   });
 
+  const hasCompletedTasks = todoList.some((todo) => todo.isComplete);
+  const hasIncompleteTasks = todoList.some((todo) => !todo.isComplete);
+
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todoList));
   }, [todoList]);
@@ -88,31 +92,79 @@ const Todo = () => {
           </button>
         </div>
 
-        <div className="mt-4 flex gap-2">
+        <div className="mt-4 relative">
           <button
-            onClick={() => setFilter("all")}
-            className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-sm sm:text-base ${
-              filter === "all" ? "bg-blue-500 text-white" : "bg-gray-200"
-            }`}
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="flex items-center justify-between bg-gray-100 border border-gray-300 text-gray-700 py-1 px-3 rounded-md focus:outline-none focus:border-blue-500 text-sm w-32"
           >
-            All
+            <span>
+              {filter === "all"
+                ? "All"
+                : filter === "completed"
+                ? "Completed"
+                : "Incomplete"}
+            </span>
+            <svg
+              className={`h-4 w-4 transform transition-transform ${
+                isDropdownOpen ? "rotate-180" : ""
+              }`}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
           </button>
-          <button
-            onClick={() => setFilter("completed")}
-            className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-sm sm:text-base ${
-              filter === "completed" ? "bg-blue-500 text-white" : "bg-gray-200"
-            }`}
-          >
-            Completed
-          </button>
-          <button
-            onClick={() => setFilter("incomplete")}
-            className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-sm sm:text-base ${
-              filter === "incomplete" ? "bg-blue-500 text-white" : "bg-gray-200"
-            }`}
-          >
-            Incomplete
-          </button>
+
+          {isDropdownOpen && (
+            <div className="absolute left-0 z-10 mt-1 bg-white border border-gray-300 rounded-md shadow-lg w-32">
+              <div
+                className="py-1"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="options-menu"
+              >
+                <button
+                  onClick={() => {
+                    setFilter("all");
+                    setIsDropdownOpen(false);
+                  }}
+                  className="block w-full px-3 py-1 text-sm text-gray-700 hover:bg-gray-100 text-left"
+                  role="menuitem"
+                >
+                  All
+                </button>
+                {hasCompletedTasks && (
+                  <button
+                    onClick={() => {
+                      setFilter("completed");
+                      setIsDropdownOpen(false);
+                    }}
+                    className="block w-full px-3 py-1 text-sm text-gray-700 hover:bg-gray-100 text-left"
+                    role="menuitem"
+                  >
+                    Completed
+                  </button>
+                )}
+                {hasIncompleteTasks && (
+                  <button
+                    onClick={() => {
+                      setFilter("incomplete");
+                      setIsDropdownOpen(false);
+                    }}
+                    className="block w-full px-3 py-1 text-sm text-gray-700 hover:bg-gray-100 text-left"
+                    role="menuitem"
+                  >
+                    Incomplete
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="mt-6 space-y-3 max-h-[400px] overflow-y-auto">
@@ -124,12 +176,7 @@ const Todo = () => {
               isComplete={item.isComplete}
               deleteTodo={deleteTodo}
               toggle={toggle}
-              editTodo={(id) => {
-                const newText = prompt("Edit your task", item.text);
-                if (newText !== null) {
-                  editTodo(id, newText);
-                }
-              }}
+              editTodo={editTodo}
             />
           ))}
         </div>
